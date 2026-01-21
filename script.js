@@ -154,6 +154,12 @@ function unaryOperation(operator, num) {
       break;
   }
 
+  if (isNaN(num)) {
+    clearEverything();
+    setValueOnScreen(NaN);
+    return;
+  }
+
   if (secondNum != undefined) {
     secondNum = num;
     secondNum = secondNum.toString().substring(0,25);
@@ -206,13 +212,17 @@ function changeNumericInput(num) {
   }
 }
 
-function operatorSelected(type) {
-  if (type === "ON/C") {
+function clearEverything() {
     firstNum = undefined;
     secondNum = undefined;
     operator = undefined;
     updateSecondNum = false;
     setValueOnScreen(0);
+}
+
+function operatorSelected(type) {
+  if (type === "ON/C") {
+    clearEverything();
     return;
   }
 
