@@ -64,7 +64,7 @@ const buttons = [
 
   [
     { val: "÷", type: "operator", color: "red-btn", basis: 1 },
-    { val: "X", type: "operator", color: "red-btn", basis: 1 },
+    { val: "x", type: "operator", color: "red-btn", basis: 1 },
     { val: "-", type: "operator", color: "red-btn", basis: 1 },
     { val: "+", type: "operator", color: "red-btn", basis: 1 },
     { val: "=", type: "operator", color: "red-btn", basis: 2 },
@@ -83,16 +83,18 @@ buttons.forEach((buttonColum) => {
     btn.classList.add(button.color);
 
     if ("basis" in button) {
-        col.style.flexDirection = "column";
-        console.log("found!");
-        btn.style.flex =`${button.basis} 0 0%`;
+      col.classList.add("second-col");
+      col.style.flexDirection = "column";
+      console.log("found!");
+      btn.style.flex = `${button.basis} 0 0%`;
     } else {
+      col.classList.add("first-col");
       btn.style.flex = `0 1 ${percentage}`;
     }
 
     col.appendChild(btn);
 
-    btn.addEventListener('click', () => buttonPressed(button))
+    btn.addEventListener("click", () => buttonPressed(button));
     // set type behavior
   });
 
@@ -108,68 +110,71 @@ let operator;
 let updateSecondNum = false;
 
 function buttonPressed(obj) {
-    const type = obj.type;
-    if (type === "number") {
-        changeNumericInput(obj.val);
-    } else if (type === "operator") {
-        operatorSelected(obj.val);
-    } else if (type === "unary") {
-        //todo!!!
-    }
+  const type = obj.type;
+  if (type === "number") {
+    changeNumericInput(obj.val);
+  } else if (type === "operator") {
+    operatorSelected(obj.val);
+  } else if (type === "unary") {
+    //todo!!!
+  }
 }
 
 function operate(operator, num1, num2) {
-    switch(operator) {
-        case '+':
-            return add(num1, num2);
-        case '-':
-            return subtract(num1, num2);
-        case 'X':
-            return multiply(num1, num2);
-        case '÷':
-            return divide(num1, num2);
-    }
+  switch (operator) {
+    case "+":
+      return add(num1, num2);
+    case "-":
+      return subtract(num1, num2);
+    case "x":
+      return multiply(num1, num2);
+    case "÷":
+      return divide(num1, num2);
+  }
 
-    return NaN;
-
+  return NaN;
 }
 
 function changeNumericInput(num) {
-    if (updateSecondNum) {
-        secondNum = (secondNum ?? '') + `${num}`;
-        console.log("second: " + secondNum);
-        setValueOnScreen(secondNum);
-    } else {
-        firstNum = (firstNum ?? '') + `${num}`;
-        console.log("first: " + firstNum);
-        setValueOnScreen(firstNum);
-    }
+  if (updateSecondNum) {
+    secondNum = (secondNum ?? "") + `${num}`;
+    console.log("second: " + secondNum);
+    setValueOnScreen(secondNum);
+  } else {
+    firstNum = (firstNum ?? "") + `${num}`;
+    console.log("first: " + firstNum);
+    setValueOnScreen(firstNum);
+  }
 }
 
 function operatorSelected(type) {
-    if (type === "ON/C") {
-        firstNum = undefined;
-        secondNum = undefined;
-        operator = undefined;
-        //todo do we need this
-        updateSecondNum = false;
-        setValueOnScreen(0);
-        return;
-    }
+  if (type === "ON/C") {
+    firstNum = undefined;
+    secondNum = undefined;
+    operator = undefined;
+    //todo do we need this
+    updateSecondNum = false;
+    setValueOnScreen(0);
+    return;
+  }
 
-    if (firstNum != undefined && secondNum != undefined && operator != undefined) {
-        firstNum = operate(operator, firstNum, secondNum);
-        secondNum = undefined;
-        operator = type;
-        updateSecondNum = true;
-        setValueOnScreen(firstNum);
-    } 
-
+  if (
+    firstNum != undefined &&
+    secondNum != undefined &&
+    operator != undefined
+  ) {
+    firstNum = operate(operator, firstNum, secondNum);
+    secondNum = undefined;
     operator = type;
     updateSecondNum = true;
+    setValueOnScreen(firstNum);
+  }
+
+  operator = type;
+  updateSecondNum = true;
 }
 
 function setValueOnScreen(val) {
-    const screen = document.querySelector(".screen");
-    screen.textContent = val;
+  const screen = document.querySelector(".screen");
+  screen.textContent = val;
 }
