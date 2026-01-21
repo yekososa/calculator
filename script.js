@@ -151,6 +151,8 @@ function unaryOperation(operator, num) {
         num = Math.sqrt(num);
       break;
     case "%":
+        //recommended for removing IEEE-754 errors due to floating point arithmetic.
+        num = (num/100).toFixed(12);
       break;
   }
 
@@ -161,11 +163,13 @@ function unaryOperation(operator, num) {
   }
 
   if (secondNum != undefined) {
-    secondNum = num;
+    //we parse float to remove trailing zeros
+    secondNum = parseFloat(num);
     secondNum = secondNum.toString().substring(0,25);
     setValueOnScreen(secondNum);
   } else {
-    firstNum = num;
+    //we parse float to remove trailing zeros
+    firstNum = parseFloat(num);
     firstNum = firstNum.toString().substring(0,25);
     setValueOnScreen(firstNum);
   }
