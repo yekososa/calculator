@@ -54,10 +54,20 @@ body {
 
 .btnContainer {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     flex: 9;
     border: 1px solid black;
     border-radius: 10px;
+}
+
+.individualBtn {
+    flex: 0 0 1px;
+}
+
+.btnColumn {
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid black;
 }
 /* todo remove */
 button {
