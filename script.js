@@ -115,7 +115,6 @@ buttons.forEach((buttonColum) => {
     col.appendChild(btn);
 
     btn.addEventListener("click", () => buttonPressed(button));
-    // set type behavior
   });
 
   buttonContainer.appendChild(col);
