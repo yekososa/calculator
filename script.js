@@ -178,3 +178,6 @@ function setValueOnScreen(val) {
   const screen = document.querySelector(".screen");
   screen.textContent = val;
 }
+
+//todo: implement most if not all the buttons
+// add toggling for operators. 
