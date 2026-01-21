@@ -3,7 +3,7 @@ function add(num1, num2) {
     return NaN;
   }
 
-  return num1 + num2;
+  return parseInt(num1) + parseInt(num2);
 }
 
 function subtract(num1, num2) {
@@ -11,7 +11,7 @@ function subtract(num1, num2) {
     return NaN;
   }
 
-  return num1 - num2;
+  return parseInt(num1) - parseInt(num2);
 }
 
 function divide(num1, num2) {
@@ -39,24 +39,27 @@ for (let i = 0; i < 4; i++) {
 
 const buttons = [
   [
-    { val: "+/-", type: "operator", color: "red-btn" },
-    { val: "√", type: "operator", color: "red-btn" },
-    { val: "%", type: "operator", color: "red-btn" },
-    { val: "MRC", type: "operator", color: "red-btn" },
-    { val: "M-", type: "operator", color: "red-btn" },
-    { val: "M+", type: "operator", color: "red-btn" },
-    { val: "7", type: "operator", color: "white-btn" },
-    { val: "8", type: "operator", color: "white-btn" },
-    { val: "9", type: "operator", color: "white-btn" },
-    { val: "4", type: "operator", color: "white-btn" },
-    { val: "5", type: "operator", color: "white-btn" },
-    { val: "6", type: "operator", color: "white-btn" },
-    { val: "1", type: "operator", color: "white-btn" },
-    { val: "2", type: "operator", color: "white-btn" },
-    { val: "3", type: "operator", color: "white-btn" },
-    { val: "ON", type: "operator", color: "red-btn" },
-    { val: "0", type: "operator", color: "white-btn" },
-    { val: ".", type: "operator", color: "white-btn" },
+    //todo next round
+    { val: "+/-", type: "unary", color: "red-btn" },
+    { val: "√", type: "unary", color: "red-btn" },
+    { val: "%", type: "unary", color: "red-btn" },
+    //these three are not needed nor within the scope of this project.
+    { val: "MRC", type: "null", color: "red-btn" },
+    { val: "M-", type: "null", color: "red-btn" },
+    { val: "M+", type: "null", color: "red-btn" },
+
+    { val: "7", type: "number", color: "white-btn" },
+    { val: "8", type: "number", color: "white-btn" },
+    { val: "9", type: "number", color: "white-btn" },
+    { val: "4", type: "number", color: "white-btn" },
+    { val: "5", type: "number", color: "white-btn" },
+    { val: "6", type: "number", color: "white-btn" },
+    { val: "1", type: "number", color: "white-btn" },
+    { val: "2", type: "number", color: "white-btn" },
+    { val: "3", type: "number", color: "white-btn" },
+    { val: "ON/C", type: "operator", color: "red-btn" },
+    { val: "0", type: "number", color: "white-btn" },
+    { val: ".", type: "unary", color: "white-btn" },
   ],
 
   [
@@ -88,8 +91,84 @@ buttons.forEach((buttonColum) => {
     }
 
     col.appendChild(btn);
+
+    btn.addEventListener('click', () => buttonPressed(button))
     // set type behavior
   });
 
   buttonContainer.appendChild(col);
 });
+
+let activeValue = 8008135;
+setValueOnScreen(activeValue);
+
+let firstNum;
+let secondNum;
+let operator;
+let updateSecondNum = false;
+
+function buttonPressed(obj) {
+    const type = obj.type;
+    if (type === "number") {
+        changeNumericInput(obj.val);
+    } else if (type === "operator") {
+        operatorSelected(obj.val);
+    } else if (type === "unary") {
+        //todo!!!
+    }
+}
+
+function operate(operator, num1, num2) {
+    switch(operator) {
+        case '+':
+            return add(num1, num2);
+        case '-':
+            return subtract(num1, num2);
+        case 'X':
+            return multiply(num1, num2);
+        case '÷':
+            return divide(num1, num2);
+    }
+
+    return NaN;
+
+}
+
+function changeNumericInput(num) {
+    if (updateSecondNum) {
+        secondNum = (secondNum ?? '') + `${num}`;
+        console.log("second: " + secondNum);
+        setValueOnScreen(secondNum);
+    } else {
+        firstNum = (firstNum ?? '') + `${num}`;
+        console.log("first: " + firstNum);
+        setValueOnScreen(firstNum);
+    }
+}
+
+function operatorSelected(type) {
+    if (type === "ON/C") {
+        firstNum = undefined;
+        secondNum = undefined;
+        operator = undefined;
+        //todo do we need this
+        updateSecondNum = false;
+        setValueOnScreen(0);
+    }
+
+    if (firstNum != undefined && secondNum != undefined && operator != undefined) {
+        firstNum = operate(operator, firstNum, secondNum);
+        secondNum = undefined;
+        operator = type;
+        updateSecondNum = true;
+        setValueOnScreen(firstNum);
+    } 
+
+    operator = type;
+    updateSecondNum = true;
+}
+
+function setValueOnScreen(val) {
+    const screen = document.querySelector(".screen");
+    screen.textContent = val;
+}
