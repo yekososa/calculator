@@ -62,7 +62,8 @@ const buttons = [
     { val: "+/-", type: "unary", color: "red-btn" },
     { val: "√", type: "unary", color: "red-btn" },
     { val: "%", type: "unary", color: "red-btn" },
-    //these three are not needed nor within the scope of this project.
+
+    //todo
     { val: "MRC", type: "null", color: "red-btn" },
     { val: "M-", type: "null", color: "red-btn" },
     { val: "M+", type: "null", color: "red-btn" },
