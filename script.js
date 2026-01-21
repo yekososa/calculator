@@ -59,7 +59,6 @@ for (let i = 0; i < 4; i++) {
 
 const buttons = [
   [
-    //todo next round
     { val: "+/-", type: "unary", color: "red-btn" },
     { val: "√", type: "unary", color: "red-btn" },
     { val: "%", type: "unary", color: "red-btn" },
@@ -136,8 +135,26 @@ function buttonPressed(obj) {
   } else if (type === "operator") {
     operatorSelected(obj.val);
   } else if (type === "unary") {
-    //todo!!!
+    if (updateSecondNum) unaryOperation(obj.val, secondNum);
+    else unaryOperation(obj.val, firstNum);
   }
+}
+
+function unaryOperation(operator, num) {
+    switch (operator) {
+        case '+/-':
+            if (num == 0) return;
+            num *= -1;
+
+    }
+
+    if (updateSecondNum) {
+        secondNum = num;
+        setValueOnScreen(secondNum);
+    } else {
+        firstNum = num;
+        setValueOnScreen(firstNum);
+    }
 }
 
 function operate(operator, num1, num2) {
@@ -158,10 +175,24 @@ function operate(operator, num1, num2) {
 function changeNumericInput(num) {
   if (updateSecondNum) {
     secondNum = (secondNum ?? "") + `${num}`;
+    if (secondNum.toString().length >= 25) {
+        //entering more than the allowed numbers means we need to restart everything. 
+        updateSecondNum = false;
+        firstNum = undefined
+        secondNum = undefined;
+        setValueOnScreen("ERR");
+        return;
+    }
     console.log("second: " + secondNum);
     setValueOnScreen(secondNum);
   } else {
     firstNum = (firstNum ?? "") + `${num}`;
+    if (firstNum.toString().length >= 25) {
+        firstNum = undefined;
+        secondNum = undefined;
+        setValueOnScreen("ERR");
+        return;
+    }
     console.log("first: " + firstNum);
     setValueOnScreen(firstNum);
   }
@@ -172,7 +203,6 @@ function operatorSelected(type) {
     firstNum = undefined;
     secondNum = undefined;
     operator = undefined;
-    //todo do we need this
     updateSecondNum = false;
     setValueOnScreen(0);
     return;
