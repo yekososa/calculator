@@ -3,5 +3,20 @@ body {
     margin: 0px;
     height: 100vh;
     width: 100vw;
-    background-color: blue;
+    background-color: antiquewhite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.container {
+    height: 400px;
+    width: 200px;
+    background-color: rgb(23, 23, 134);
+}
+
+/* todo remove */
+* {
+    color:white;
+}
+
