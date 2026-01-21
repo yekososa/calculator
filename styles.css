@@ -41,7 +41,6 @@ body {
 .solar {
     display: flex;
     justify-content: flex-start;
-    /* border: 1px solid black; */
     flex: 1;
     padding: 10px 0px;
 }
@@ -80,7 +79,6 @@ body {
     flex: 0 1 75%;
 }
 
-/* todo remove */
 button {
     border-radius: 2px;
     padding: 0px;
