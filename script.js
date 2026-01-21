@@ -107,14 +107,20 @@ buttons.forEach((buttonColum) => {
       col.style.flexDirection = "column";
       console.log("found!");
       btn.style.flex = `${button.basis} 0 0%`;
+      btn.classList.add('operator');
+      btn.addEventListener("click", () => {
+        removeAllToggled();
+        btn.classList.add('toggled');
+        buttonPressed(button);
+      });
+      
     } else {
       col.classList.add("first-col");
       btn.style.flex = `0 1 calc(${percentage} - 5px)`;
+      btn.addEventListener("click", () => buttonPressed(button));
     }
 
     col.appendChild(btn);
-
-    btn.addEventListener("click", () => buttonPressed(button));
   });
 
   buttonContainer.appendChild(col);
@@ -135,12 +141,11 @@ function buttonPressed(obj) {
   } else if (type === "operator") {
     operatorSelected(obj.val);
   } else if (type === "unary") {
-    unaryOperation(obj.val, secondNum ?? (firstNum ?? 0));
+    unaryOperation(obj.val, secondNum ?? firstNum ?? 0);
   }
 }
 
 function unaryOperation(operator, num) {
-
   num = parseFloat(num);
   let decimalOperation = false;
   switch (operator) {
@@ -171,7 +176,7 @@ function unaryOperation(operator, num) {
     if (!decimalOperation) {
       secondNum = parseFloat(num);
     } else {
-        secondNum = num;
+      secondNum = num;
     }
     secondNum = secondNum.toString().substring(0, 25);
     setValueOnScreen(secondNum);
@@ -180,16 +185,19 @@ function unaryOperation(operator, num) {
     if (!decimalOperation) {
       firstNum = parseFloat(num);
     } else {
-        //a decimal added to the first num means num 1 will change. 
-        updateSecondNum = false;
-        firstNum = num;
+      //a decimal added to the first num means num 1 will change.
+      updateSecondNum = false;
+      firstNum = num;
     }
     firstNum = firstNum.toString().substring(0, 25);
     setValueOnScreen(firstNum);
   }
 }
 
+let selectedOperator;
+
 function operate(operator, num1, num2) {
+  removeAllToggled();
   switch (operator) {
     case "+":
       return add(num1, num2);
@@ -202,6 +210,14 @@ function operate(operator, num1, num2) {
   }
 
   return NaN;
+}
+
+function removeAllToggled() {
+    const allToggled = document.querySelectorAll('.toggled');
+    allToggled.forEach(element => {
+        element.classList.remove('toggled');
+    })
+
 }
 
 function changeNumericInput(num) {
@@ -264,5 +280,3 @@ function setValueOnScreen(val) {
   const screen = document.querySelector(".screen");
   screen.textContent = val;
 }
-
-//todo: add toggling for operators.

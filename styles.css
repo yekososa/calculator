@@ -101,3 +101,119 @@ button {
     font-family: 'Lucida Console', 'Monaco';
     font-weight: 700;
 }
+body {
+    padding: 0px;
+    margin: 0px;
+    height: 100vh;
+    width: 100vw;
+    background-color: antiquewhite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    padding: 20px;
+    height: 400px;
+    width: 200px;
+    background-color: rgb(46, 46, 159);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.screen-container {
+    flex: 1;
+    border: 1px solid black;
+    background-color: rgb(67, 66, 66);
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    padding: 2px;
+}
+
+.screen {
+    display: flex;
+    justify-content: right;
+    flex: 1;
+    background-color: gray;
+    border-radius: 5px;
+}
+
+.solar {
+    display: flex;
+    justify-content: flex-start;
+    flex: 1;
+    padding: 10px 0px;
+}
+
+.solar div {
+    background-color: rgb(44, 42, 42);
+    border: 1px solid black;
+    width: 20px;;
+}
+
+.btnContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    flex: 9;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 2px;
+    gap: 10px;
+}
+
+.individualBtn {
+    flex: 0 0 1px;
+}
+
+.btnColumn {
+    gap: 5px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.second-col {
+    flex: 0 1 25%;
+}
+
+.first-col {
+    flex: 0 1 75%;
+}
+
+button {
+    border-radius: 2px;
+    padding: 0px;
+    margin: 0px;
+    border: 0;
+    cursor: pointer;
+}
+
+.red-btn {
+    background-color: darkred;
+    color: aliceblue;
+    border: none;
+}
+
+.white-btn {
+    background-color: antiquewhite;
+    color: blue;
+}
+
+* {
+    font-family: 'Lucida Console', 'Monaco';
+    font-weight: 700;
+}
+
+.operator.toggled {
+     color: black;
+    background-color: aliceblue;
+    border: black;
+}
+
+.operator:hover{
+    color: black;
+    background-color: aliceblue;
+    border: black;
+}
