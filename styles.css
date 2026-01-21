@@ -41,8 +41,7 @@ body {
 .solar {
     display: flex;
     justify-content: flex-start;
-    border: 1px solid black;
-    /* justify-self: flex-start; */
+    /* border: 1px solid black; */
     flex: 1;
     padding: 10px;
 }
