@@ -135,8 +135,7 @@ function buttonPressed(obj) {
   } else if (type === "operator") {
     operatorSelected(obj.val);
   } else if (type === "unary") {
-    if (updateSecondNum) unaryOperation(obj.val, secondNum);
-    else unaryOperation(obj.val, firstNum);
+    unaryOperation(obj.val, secondNum ?? firstNum);
   }
 }
 
@@ -155,7 +154,7 @@ function unaryOperation(operator, num) {
       break;
   }
 
-  if (updateSecondNum) {
+  if (secondNum != undefined) {
     secondNum = num;
     secondNum = secondNum.toString().substring(0,25);
     setValueOnScreen(secondNum);
