@@ -47,7 +47,7 @@ function multiply(num1, num2) {
 }
 
 function stripLeadingZeros(input) {
-  return input.toString().replace(/^0/, "");
+  return parseFloat(input).toString();
 }
 
 const solarPanel = document.querySelector(".solar");
