@@ -251,5 +251,4 @@ function setValueOnScreen(val) {
   screen.textContent = val;
 }
 
-//todo: implement most if not all the buttons
-// add toggling for operators.
+//todo: add toggling for operators.
