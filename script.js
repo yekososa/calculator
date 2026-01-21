@@ -89,7 +89,7 @@ buttons.forEach((buttonColum) => {
       btn.style.flex = `${button.basis} 0 0%`;
     } else {
       col.classList.add("first-col");
-      btn.style.flex = `0 1 ${percentage}`;
+      btn.style.flex = `0 1 calc(${percentage} - 5px)`;
     }
 
     col.appendChild(btn);

@@ -67,9 +67,9 @@ body {
 }
 
 .btnColumn {
+    gap: 5px;
     display: flex;
     flex-wrap: wrap;
-    /* border: 1px solid black; */
 }
 
 .second-col {
