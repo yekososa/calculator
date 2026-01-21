@@ -135,25 +135,29 @@ function buttonPressed(obj) {
   } else if (type === "operator") {
     operatorSelected(obj.val);
   } else if (type === "unary") {
-    unaryOperation(obj.val, secondNum ?? firstNum);
+    unaryOperation(obj.val, secondNum ?? (firstNum ?? 0));
   }
 }
 
 function unaryOperation(operator, num) {
-    if (num == 0) return;
 
-    num = parseFloat(num);
+  num = parseFloat(num);
+  let decimalOperation = false;
   switch (operator) {
     case "+/-":
       num *= -1;
       break;
     case "√":
-        num = Math.sqrt(num);
+      num = Math.sqrt(num);
       break;
     case "%":
-        //recommended for removing IEEE-754 errors due to floating point arithmetic.
-        num = (num/100).toFixed(12);
+      //recommended for removing IEEE-754 errors due to floating point arithmetic.
+      num = (num / 100).toFixed(12);
       break;
+    case ".":
+      if (num.toString().includes(".")) return;
+      num = num + ".";
+      decimalOperation = true;
   }
 
   if (isNaN(num)) {
@@ -164,13 +168,23 @@ function unaryOperation(operator, num) {
 
   if (secondNum != undefined) {
     //we parse float to remove trailing zeros
-    secondNum = parseFloat(num);
-    secondNum = secondNum.toString().substring(0,25);
+    if (!decimalOperation) {
+      secondNum = parseFloat(num);
+    } else {
+        secondNum = num;
+    }
+    secondNum = secondNum.toString().substring(0, 25);
     setValueOnScreen(secondNum);
   } else {
     //we parse float to remove trailing zeros
-    firstNum = parseFloat(num);
-    firstNum = firstNum.toString().substring(0,25);
+    if (!decimalOperation) {
+      firstNum = parseFloat(num);
+    } else {
+        //a decimal added to the first num means num 1 will change. 
+        updateSecondNum = false;
+        firstNum = num;
+    }
+    firstNum = firstNum.toString().substring(0, 25);
     setValueOnScreen(firstNum);
   }
 }
@@ -217,11 +231,11 @@ function changeNumericInput(num) {
 }
 
 function clearEverything() {
-    firstNum = undefined;
-    secondNum = undefined;
-    operator = undefined;
-    updateSecondNum = false;
-    setValueOnScreen(0);
+  firstNum = undefined;
+  secondNum = undefined;
+  operator = undefined;
+  updateSecondNum = false;
+  setValueOnScreen(0);
 }
 
 function operatorSelected(type) {
