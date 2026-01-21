@@ -3,7 +3,11 @@ function add(num1, num2) {
     return NaN;
   }
 
-  return parseInt(num1) + parseInt(num2);
+  num1 = stripLeadingZeros(num1);
+  num2 = stripLeadingZeros(num2);
+
+  let result = parseFloat(num1) + parseFloat(num2);
+  return stripLeadingZeros(result).substring(0, 25);
 }
 
 function subtract(num1, num2) {
@@ -11,15 +15,23 @@ function subtract(num1, num2) {
     return NaN;
   }
 
-  return parseInt(num1) - parseInt(num2);
+  num1 = stripLeadingZeros(num1);
+  num2 = stripLeadingZeros(num2);
+
+  let result = parseFloat(num1) - parseFloat(num2);
+  return stripLeadingZeros(result).substring(0, 25);
 }
 
 function divide(num1, num2) {
   if (isNaN(num1) || isNaN(num2) || num2 == 0) {
     return NaN;
   }
+  num1 = stripLeadingZeros(num1);
+  num2 = stripLeadingZeros(num2);
 
-  return num1 / num2;
+  let result = parseFloat(num1) / parseFloat(num2);
+
+  return stripLeadingZeros(result).substring(0, 25);
 }
 
 function multiply(num1, num2) {
@@ -27,7 +39,15 @@ function multiply(num1, num2) {
     return NaN;
   }
 
-  return num1 * num2;
+  num1 = stripLeadingZeros(num1);
+  num2 = stripLeadingZeros(num2);
+
+  let result = parseFloat(num1) * parseFloat(num2);
+  return stripLeadingZeros(result).substring(0, 25);
+}
+
+function stripLeadingZeros(input) {
+  return input.toString().replace(/^0/, "");
 }
 
 const solarPanel = document.querySelector(".solar");
@@ -180,4 +200,4 @@ function setValueOnScreen(val) {
 }
 
 //todo: implement most if not all the buttons
-// add toggling for operators. 
+// add toggling for operators.
