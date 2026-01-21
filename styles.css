@@ -72,11 +72,11 @@ body {
 }
 
 .second-col {
-    flex: 0 1 25%;
+    flex: 0 0 25%;
 }
 
 .first-col {
-    flex: 0 1 75%;
+    flex: 0 0 75%;
 }
 
 /* todo remove */
