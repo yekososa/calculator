@@ -154,6 +154,7 @@ function operatorSelected(type) {
         //todo do we need this
         updateSecondNum = false;
         setValueOnScreen(0);
+        return;
     }
 
     if (firstNum != undefined && secondNum != undefined && operator != undefined) {
