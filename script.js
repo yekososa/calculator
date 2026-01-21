@@ -141,20 +141,29 @@ function buttonPressed(obj) {
 }
 
 function unaryOperation(operator, num) {
-    switch (operator) {
-        case '+/-':
-            if (num == 0) return;
-            num *= -1;
+    if (num == 0) return;
 
-    }
+    num = parseFloat(num);
+  switch (operator) {
+    case "+/-":
+      num *= -1;
+      break;
+    case "√":
+        num = Math.sqrt(num);
+      break;
+    case "%":
+      break;
+  }
 
-    if (updateSecondNum) {
-        secondNum = num;
-        setValueOnScreen(secondNum);
-    } else {
-        firstNum = num;
-        setValueOnScreen(firstNum);
-    }
+  if (updateSecondNum) {
+    secondNum = num;
+    secondNum = secondNum.toString().substring(0,25);
+    setValueOnScreen(secondNum);
+  } else {
+    firstNum = num;
+    firstNum = firstNum.toString().substring(0,25);
+    setValueOnScreen(firstNum);
+  }
 }
 
 function operate(operator, num1, num2) {
@@ -176,22 +185,22 @@ function changeNumericInput(num) {
   if (updateSecondNum) {
     secondNum = (secondNum ?? "") + `${num}`;
     if (secondNum.toString().length >= 25) {
-        //entering more than the allowed numbers means we need to restart everything. 
-        updateSecondNum = false;
-        firstNum = undefined
-        secondNum = undefined;
-        setValueOnScreen("ERR");
-        return;
+      //entering more than the allowed numbers means we need to restart everything.
+      updateSecondNum = false;
+      firstNum = undefined;
+      secondNum = undefined;
+      setValueOnScreen("ERR");
+      return;
     }
     console.log("second: " + secondNum);
     setValueOnScreen(secondNum);
   } else {
     firstNum = (firstNum ?? "") + `${num}`;
     if (firstNum.toString().length >= 25) {
-        firstNum = undefined;
-        secondNum = undefined;
-        setValueOnScreen("ERR");
-        return;
+      firstNum = undefined;
+      secondNum = undefined;
+      setValueOnScreen("ERR");
+      return;
     }
     console.log("first: " + firstNum);
     setValueOnScreen(firstNum);
