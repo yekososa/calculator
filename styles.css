@@ -43,7 +43,7 @@ body {
     justify-content: flex-start;
     /* border: 1px solid black; */
     flex: 1;
-    padding: 10px;
+    padding: 10px 0px;
 }
 
 .solar div {
@@ -53,12 +53,24 @@ body {
 }
 
 .btnContainer {
+    display: flex;
+    flex-wrap: wrap;
     flex: 9;
     border: 1px solid black;
     border-radius: 10px;
 }
 /* todo remove */
-* {
-    color:white;
+button {
+    border-radius: 2px;
+}
+
+.red-btn {
+    background-color: darkred;
+    color: aliceblue;
+}
+
+.white-btn {
+    background-color: antiquewhite;
+    color: blue;
 }
 
